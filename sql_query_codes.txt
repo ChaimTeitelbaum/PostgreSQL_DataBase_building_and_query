@@ -1,0 +1,135 @@
+
+-----------------------------------------------------------------------------------------------------------------
+employeeinfo (with salary)
+----------------------------------------------------------------------------------------------------------------
+
+select employees.emp_no, employees.last_name, employees.first_name, employees.gender,  salaries.salary
+from employees
+join salaries on employees.emp_no = salaries.emp_no
+-----------------------------------------------------------------------------------------------------------------
+emphired2_1986
+----------------------------------------------------------------------------------------------------------------
+
+CREATE TABLE emphired2_1986 AS
+select 
+		employees.emp_no,
+		employees.last_name,
+		employees.first_name,
+		employees.gender, 
+		employees.hire_date,
+		salaries.salary
+from 
+		employees
+
+join
+		salaries on employees.emp_no = salaries.emp_no
+where 
+		employees.hire_date BETWEEN '1986-01-01' AND '1986-12-31'
+-----------------------------------------------------------------------------------------------------------------
+manager_list
+----------------------------------------------------------------------------------------------------------------
+
+create table manager_list as
+
+select 
+		d.*, 
+		e.emp_no,  
+		e.last_name, 
+		e.first_name, 
+		de.from_date, 
+		de.to_date
+		
+from 
+		departments d
+join 
+		dept_emp de on d.dept_no = de.dept_no
+join 
+		employees e on e.emp_no = de.emp_no
+join 
+		dept_manager on dept_manager.emp_no = de.emp_no
+
+-----------------------------------------------------------------------------------------------------------------
+empinfo_deptname
+----------------------------------------------------------------------------------------------------------------
+
+
+create
+		table empinfo_deptname as
+select 
+		de.emp_no,  
+		e.last_name, 
+		e.first_name,
+		d.dept_name
+from		
+		departments d
+join 
+		dept_emp de on d.dept_no = de.dept_no
+join 
+		employees e on e.emp_no = de.emp_no
+-----------------------------------------------------------------------------------------------------------------
+Hercules_B
+----------------------------------------------------------------------------------------------------------------
+
+create table Hercules_B as
+select
+		first_name, last_name
+from
+		employees
+where
+		first_name = 'Hercules' and last_name LIKE 'B%';
+
+
+-----------------------------------------------------------------------------------------------------------------
+sales_dep
+----------------------------------------------------------------------------------------------------------------
+
+create table sales_dep as
+
+select
+		de.emp_no,
+		e.last_name,
+		e.first_name,
+		d.dept_name
+from 
+		dept_emp de
+join 
+		employees e on de.emp_no = e.emp_no
+join 
+		departments d on de.dept_no = d.dept_no
+where
+		d.dept_name = 'Sales';
+
+-----------------------------------------------------------------------------------------------------------------
+sales_dev
+----------------------------------------------------------------------------------------------------------------
+
+create table sales_dev as
+
+select
+		de.emp_no,
+		e.last_name,
+		e.first_name,
+		d.dept_name
+from 
+		dept_emp de
+join 
+		employees e on de.emp_no = e.emp_no
+join 
+		departments d on de.dept_no = d.dept_no
+where
+		d.dept_name = 'Sales' or d.dept_name = 'Development';
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------
+name_freq
+----------------------------------------------------------------------------------------------------------------
+
+create table name_freq as
+select
+		last_name, count(last_name) as "frequency"
+from 
+		employees 
+group by 
+		last_name order by count(last_name) desc;
