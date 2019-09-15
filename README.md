@@ -1,0 +1,2 @@
+# homework_sql
+PostgreSQL
