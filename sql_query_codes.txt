@@ -11,27 +11,27 @@ emphired2_1986
 ----------------------------------------------------------------------------------------------------------------
 
 CREATE TABLE emphired2_1986 AS
-select 
+SELECT 
 		employees.emp_no,
 		employees.last_name,
 		employees.first_name,
 		employees.gender, 
 		employees.hire_date,
 		salaries.salary
-from 
+FROM 
 		employees
 
-join
+JOIN
 		salaries on employees.emp_no = salaries.emp_no
-where 
+WHERE 
 		employees.hire_date BETWEEN '1986-01-01' AND '1986-12-31'
 -----------------------------------------------------------------------------------------------------------------
 manager_list
 ----------------------------------------------------------------------------------------------------------------
 
-create table manager_list as
+CREATE TABLE manager_list AS
 
-select 
+SELECT 
 		d.*, 
 		e.emp_no,  
 		e.last_name, 
@@ -39,13 +39,13 @@ select
 		de.from_date, 
 		de.to_date
 		
-from 
+FROM 
 		departments d
-join 
+JOIN 
 		dept_emp de on d.dept_no = de.dept_no
-join 
+JOIN 
 		employees e on e.emp_no = de.emp_no
-join 
+JOIN 
 		dept_manager on dept_manager.emp_no = de.emp_no
 
 -----------------------------------------------------------------------------------------------------------------
@@ -53,29 +53,28 @@ empinfo_deptname
 ----------------------------------------------------------------------------------------------------------------
 
 
-create
-		table empinfo_deptname as
-select 
+CREATE TABLE empinfo_deptname AS
+SELECT 
 		de.emp_no,  
 		e.last_name, 
 		e.first_name,
 		d.dept_name
-from		
+FROM		
 		departments d
-join 
+JOIN 
 		dept_emp de on d.dept_no = de.dept_no
-join 
+JOIN 
 		employees e on e.emp_no = de.emp_no
 -----------------------------------------------------------------------------------------------------------------
 Hercules_B
 ----------------------------------------------------------------------------------------------------------------
 
-create table Hercules_B as
-select
+CREATE TABLE Hercules_B AS
+SELECT
 		first_name, last_name
-from
+FROM
 		employees
-where
+WHERE
 		first_name = 'Hercules' and last_name LIKE 'B%';
 
 
@@ -83,40 +82,40 @@ where
 sales_dep
 ----------------------------------------------------------------------------------------------------------------
 
-create table sales_dep as
+CREATE TABLE sales_dep AS
 
-select
+SELECT
 		de.emp_no,
 		e.last_name,
 		e.first_name,
 		d.dept_name
-from 
+FROM 
 		dept_emp de
-join 
+JOIN 
 		employees e on de.emp_no = e.emp_no
-join 
+JOIN 
 		departments d on de.dept_no = d.dept_no
-where
+WHERE
 		d.dept_name = 'Sales';
 
 -----------------------------------------------------------------------------------------------------------------
 sales_dev
 ----------------------------------------------------------------------------------------------------------------
 
-create table sales_dev as
+CREATE TABLE sales_dev as
 
-select
+SELECT
 		de.emp_no,
 		e.last_name,
 		e.first_name,
 		d.dept_name
-from 
+FROM 
 		dept_emp de
-join 
+JOIN 
 		employees e on de.emp_no = e.emp_no
-join 
+JOIN 
 		departments d on de.dept_no = d.dept_no
-where
+WHERE
 		d.dept_name = 'Sales' or d.dept_name = 'Development';
 
 
@@ -125,11 +124,10 @@ where
 -----------------------------------------------------------------------------------------------------------------
 name_freq
 ----------------------------------------------------------------------------------------------------------------
-
-create table name_freq as
-select
+CREATE TABLE name_freq AS
+SELECT
 		last_name, count(last_name) as "frequency"
-from 
+FROM 
 		employees 
-group by 
+GROUP BY 
 		last_name order by count(last_name) desc;
